@@ -1,25 +1,29 @@
-import logo from './logo.svg';
+import React from 'react';
+import { StreamChat } from 'stream-chat';
+import { ChannelList, Chat } from 'stream-chat-react';
+import Cookies from 'universal-cookie';
 import './App.css';
 
-function App() {
+// Component Imports 
+import {ChannelContainer, ChannelListContainer, Auth} from './components';
+
+
+const api = '5xv5vjwaahq6';
+const client = new StreamChat(api);
+const authToken = false;
+
+const App = () => {
+
+  if(!authToken) return <Auth/>
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div className='app__wrapper'>
+      <Chat client={client} theme='team dark'>
+        <ChannelListContainer />
+        <ChannelContainer />
+      </Chat>
     </div>
-  );
+  )
 }
 
 export default App;
